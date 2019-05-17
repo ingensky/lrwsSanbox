@@ -81,42 +81,60 @@
 
     LinkedHashMap<String, Object> groupParams = new LinkedHashMap<String, Object>();
 
-//    groupParams.put("site", Boolean.TRUE);
-    groupParams.put("site", Boolean.FALSE);
+    groupParams.put("site", Boolean.TRUE);
+//    groupParams.put("site", Boolean.FALSE);
+    List<Group> groups;
+    int groupsCount;
 
-    if (layout.getGroup().isUser()) {
-//        groupParams.put("usersGroups", user.getUserId());
-        groupParams.put("usersGroups", layout.getUserId());
-        groupParams.put("active", Boolean.TRUE);
-
-    } else if (layout.getGroup().isOrganization()) {
-//        groupParams.put("organizationGroups", layout.getGroupId());
-        groupParams.put("usersGroups", layout.getUserId());
+    if (layout.getGroup().isOrganization()) {
+        //        groupParams.put("organizationGroups", layout.getGroupId());
+//        groupParams.put("organizationsGroups", 64541L);
 
         groupParams.put("active", Boolean.TRUE);
 
-        System.out.println(GroupLocalServiceUtil.getOrganizationGroupsCount(layout.getGroupId()));
+        long organizationId = layout.getGroup().getOrganizationId();
+        System.out.println(GroupLocalServiceUtil.getOrganizationGroupsCount(organizationId));
         System.out.println(layout.getGroupId());
-        System.out.println(GroupLocalServiceUtil.getOrganizationGroupsCount(64543));
+        System.out.println(organizationId);
+        System.out.println(GroupLocalServiceUtil.getOrganizationGroupsCount(64541L));
+
+        groupsCount = GroupLocalServiceUtil.getOrganizationGroupsCount(organizationId);
+        groups = GroupLocalServiceUtil.getOrganizationGroups(organizationId);
 
 
-    } else {
-        List types = new ArrayList();
+    }else {
+        if (layout.getGroup().isUser()) {
+//        groupParams.put("usersGroups", user.getUserId());
+            groupParams.put("usersGroups", layout.getUserId());
+            groupParams.put("active", Boolean.TRUE);
 
-        types.add(Integer.valueOf(GroupConstants.TYPE_SITE_OPEN));
-        types.add(Integer.valueOf(GroupConstants.TYPE_SITE_RESTRICTED));
+        } else {
+            List types = new ArrayList();
 
-//        groupParams.put("types", types);
-//        groupParams.put("active", Boolean.TRUE);
+            types.add(Integer.valueOf(GroupConstants.TYPE_SITE_OPEN));
+            types.add(Integer.valueOf(GroupConstants.TYPE_SITE_RESTRICTED));
+
+            groupParams.put("types", types);
+            groupParams.put("active", Boolean.TRUE);
+        }
+
+        groupsCount = GroupLocalServiceUtil.searchCount(company.getCompanyId(), searchTerms.getKeywords(), groupParams);
+
+        groupSearch.setTotal(groupsCount);
+
+        groups = GroupLocalServiceUtil.search(
+                company.getCompanyId(),
+                searchTerms.getKeywords(),
+                groupParams, groupSearch.getStart(),
+                groupSearch.getEnd(),
+                groupSearch.getOrderByComparator());
+
     }
 
 
-    int groupsCount = GroupLocalServiceUtil.searchCount(company.getCompanyId(), searchTerms.getKeywords(), groupParams);
 
 
-    groupSearch.setTotal(groupsCount);
 
-    List<Group> groups = GroupLocalServiceUtil.search(company.getCompanyId(), searchTerms.getKeywords(), groupParams, groupSearch.getStart(), groupSearch.getEnd(), groupSearch.getOrderByComparator());
 
 
     Long layoutId = Long.parseLong(dummyField);
