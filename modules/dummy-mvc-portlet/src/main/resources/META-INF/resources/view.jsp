@@ -100,6 +100,7 @@
 
         groupsCount = GroupLocalServiceUtil.getOrganizationGroupsCount(organizationId);
         groups = GroupLocalServiceUtil.getOrganizationGroups(organizationId);
+//        groups.forEach(group1 -> System.out.println(group1.getGroupId()));
 
 
     }else {
