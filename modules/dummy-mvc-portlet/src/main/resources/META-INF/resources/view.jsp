@@ -1,23 +1,9 @@
-<%@ page import="com.liferay.portal.kernel.model.*" %>
-<%@ page import="com.liferay.sites.kernel.util.SitesUtil" %>
-<%@ page import="com.liferay.sites.kernel.util.Sites" %>
-<%@ page import="com.liferay.portal.kernel.theme.ThemeDisplay" %>
-<%--<%@ page import="com.liferay.portal.kernel.model.Group" %>--%>
-<%--<%@ page import="com.liferay.portal.kernel.model.GroupConstants" %>--%>
-<%--<%@ page import="com.liferay.portal.kernel.service.GroupLocalServiceUtil" %>--%>
-<%--<%@ page import="java.util.ArrayList" %>--%>
-<%--<%@ page import="java.util.List" %>--%>
-<%--<%@ page import="java.util.Map" %>--%>
-<%--<%@ page import="com.liferay.portal.kernel.service.UserLocalServiceUtil" %>--%>
-<%--<%@ page import="com.liferay.portal.kernel.workflow.WorkflowConstants" %>--%>
-<%--<%@ page import="com.liferay.portal.kernel.util.*" %>--%>
-<%--<%@ page import="com.liferay.portal.kernel.model.GroupWrapper" %>--%>
-<%--<%@ page import="com.liferay.portal.kernel.dao.search.SearchContainer" %>--%>
+
 <%@ include file="/init.jsp" %>
 
-<h3>Hello from Dummy OSGI portlet</h3>
+<%--<h3>Hello from Dummy OSGI portlet</h3>--%>
 <p>
-    <b>
+
 
 
     <%!
@@ -27,7 +13,7 @@
 
 
 
-        <liferay-ui:message key="dummymvc.caption"/></b>
+<%--    <b> <liferay-ui:message key="dummymvc.caption"/></b>--%>
 </p>
 
 <%
@@ -72,6 +58,12 @@
         System.out.println("layout group display url - " + layout.getGroup().getScopeLabel(themeDisplay));
         System.out.println("layout group is organization - " + layout.getGroup().isOrganization());
         System.out.println("layout group is user - " + layout.getGroup().isUser());
+        System.out.println("layout.getUserId() - " + layout.getUserId());
+        System.out.println("layout.getGroup().getClassPK() - " +  layout.getGroup().getClassPK());
+        System.out.println("layout.getGroup().getClassName() - " +  layout.getGroup().getClassName());
+        System.out.println("layout.getGroup().getClassNameId() - " +  layout.getGroup().getClassNameId());
+        System.out.println("layout.getGroup().getPrimaryKey() - " +  layout.getGroup().getPrimaryKey());
+
 
 
 
@@ -106,7 +98,8 @@
     }else {
         if (layout.getGroup().isUser()) {
 //        groupParams.put("usersGroups", user.getUserId());
-            groupParams.put("usersGroups", layout.getUserId());
+//            groupParams.put("usersGroups", layout.getUserId());
+            groupParams.put("usersGroups", layout.getGroup().getClassPK());
             groupParams.put("active", Boolean.TRUE);
 
         } else {
@@ -184,7 +177,7 @@
 <liferay-frontend:management-bar>
     <liferay-frontend:management-bar-buttons>
         <liferay-frontend:management-bar-display-buttons
-                displayViews='<%= new String[] {"icon", "list"} %>'
+                displayViews='<%= new String[] {"icon", "list", "ADT", "table", "descriptive"} %>'
                 portletURL="<%= PortletURLUtil.clone(portletURL, renderResponse) %>"
                 selectedDisplayStyle="<%= displayStyle %>"
         />
@@ -216,26 +209,18 @@
 </liferay-frontend:management-bar>
 
 
-<c:choose>
-    <c:when test="<%= doConfigure %>">
-        <liferay-ui:message
-                key="dummymvc.congiguration.no-config"
-        />
-    </c:when>
-    <c:otherwise>
-        <p>
-            # <%= dummyField %> #
-        </p>
-        <p>
-            # Total sites number is - <%= groupsCount %> #
-        </p>
-        <p>
-            <liferay-ui:message
-                    key="dummymvc.congiguration.caption"
-            />
-        </p>
-    </c:otherwise>
-</c:choose>
+<p>
+   ID of template filter is  # <%= dummyField %> #
+</p>
+<p>
+    # Total sites number is - <%= groupsCount %> #
+</p>
+<div>
+<%--    <p><%= dummyDisplay.returnSomeString()%></p>--%>
+<%--    <p><%= dummyDisplay.returnSomeString("Some existing string")%></p>--%>
+<%--    <p><%= dummyDisplay.doSomethingWithLayout(layout)%></p>--%>
+</div>
+
 
 
 <aui:form action="<%= portletURL.toString() %>" cssClass="container-fluid-1280" method="get" name="fm">
@@ -421,9 +406,9 @@
                         />
                     </liferay-ui:search-container-column-text>
 
-<%--                    <liferay-ui:search-container-column-jsp--%>
-<%--                            path="/site_action.jsp"--%>
-<%--                    />--%>
+                    <liferay-ui:search-container-column-jsp
+                            path="/site_action.jsp"
+                    />
                 </c:when>
             </c:choose>
         </liferay-ui:search-container-row>

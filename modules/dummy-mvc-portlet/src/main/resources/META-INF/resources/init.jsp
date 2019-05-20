@@ -52,8 +52,13 @@
 <%@ page import="com.liferay.portal.kernel.model.LayoutSetPrototype" %>
 <%@ page import="java.util.*" %>
 <%@ page import="com.liferay.portal.kernel.service.LayoutLocalServiceUtil" %>
-
-
+<%@ page import="dummy.mvc.portlet.display.DummyDisplay" %>
+<%@ page import="com.liferay.portal.kernel.model.*" %>
+<%@ page import="com.liferay.sites.kernel.util.SitesUtil" %>
+<%@ page import="com.liferay.sites.kernel.util.Sites" %>
+<%@ page import="com.liferay.portal.kernel.theme.ThemeDisplay" %>
+<%@ page import="com.liferay.taglib.search.ResultRow" %>
+<%@ page import="com.liferay.portal.kernel.service.*" %>
 
 
 <liferay-theme:defineObjects />
@@ -61,6 +66,7 @@
 <portlet:defineObjects />
 
 <%
+    DummyDisplay dummyDisplay = new DummyDisplay();
     DummyPortletConfiguration demoConfiguration = (DummyPortletConfiguration)
             renderRequest.getAttribute(DummyPortletConfiguration.class.getName());
 
