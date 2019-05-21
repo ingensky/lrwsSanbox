@@ -1,231 +1,41 @@
-
 <%@ include file="/init.jsp" %>
 
-<%--<h3>Hello from Dummy OSGI portlet</h3>--%>
-<p>
-
-
-
-    <%!
-        private SearchContainer<Object> searchContainer;
-        private GroupWrapper group;
-    %>
-
-
-
-<%--    <b> <liferay-ui:message key="dummymvc.caption"/></b>--%>
-</p>
+<%!
+    private SearchContainer<Object> searchContainer;
+    private GroupWrapper group;
+%>
 
 <%
     boolean doConfigure;
     doConfigure = Validator.isNull(dummyField);
     System.out.println(dummyField);
-
-    String tabs1 = ParamUtil.getString(request, "tabs1", "my-sites");
-
-    if (!tabs1.equals("my-sites") && !tabs1.equals("available-sites")) {
-        tabs1 = "my-sites";
-    }
-
-    String displayStyle = ParamUtil.getString(request, "displayStyle", "list");
-
-    PortletURL portletURL = renderResponse.createRenderURL();
-
-    portletURL.setParameter("tabs1", tabs1);
-
-    request.setAttribute("view.jsp-tabs1", tabs1);
-
-
-
-        System.out.println(renderRequest.getWindowState());
-        System.out.println("Текущий урл - " + themeDisplay.getURLCurrent());
-        System.out.println("Текущий юзер - " + themeDisplay.getUser().getScreenName());
-        System.out.println("Текущий юзер - " + themeDisplay.getUser().getFullName());
-        System.out.println("Текущий юзер - " + themeDisplay.getUserId());
-        System.out.println("Текущий organisation - " + themeDisplay.getScopeGroupName());
-        System.out.println("Текущий organisationId - " + scopeGroupId);
-        System.out.println("Текущий plid - " + plid);
-        System.out.println("Текущий regularUrl - " + layout.getRegularURL(request));
-        System.out.println("Текущий target - " + layout.getTarget());
-        System.out.println("Текущий friendlyUrl - " + layout.getFriendlyURL(Locale.US));
-        System.out.println("layout.groupId - " + layout.getGroup().getGroupId());
-        System.out.println("layout group type - " + layout.getGroup().getType());
-        System.out.println("layout group typeLabel - " + layout.getGroup().getTypeLabel());
-        System.out.println(" layout group type mlname - " + layout.getGroup().getName(Locale.US));
-        System.out.println("layout group name - " + layout.getGroup().getName());
-        System.out.println("layout group display url - " + layout.getGroup().getDisplayURL(themeDisplay));
-        System.out.println("layout group display url - " + layout.getGroup().getScopeDescriptiveName(themeDisplay));
-        System.out.println("layout group display url - " + layout.getGroup().getScopeLabel(themeDisplay));
-        System.out.println("layout group is organization - " + layout.getGroup().isOrganization());
-        System.out.println("layout group is user - " + layout.getGroup().isUser());
-        System.out.println("layout.getUserId() - " + layout.getUserId());
-        System.out.println("layout.getGroup().getClassPK() - " +  layout.getGroup().getClassPK());
-        System.out.println("layout.getGroup().getClassName() - " +  layout.getGroup().getClassName());
-        System.out.println("layout.getGroup().getClassNameId() - " +  layout.getGroup().getClassNameId());
-        System.out.println("layout.getGroup().getPrimaryKey() - " +  layout.getGroup().getPrimaryKey());
-
-
-
-
-    GroupSearch groupSearch = new GroupSearch(renderRequest, PortletURLUtil.clone(portletURL, renderResponse));
-
-    GroupSearchTerms searchTerms = (GroupSearchTerms) groupSearch.getSearchTerms();
-
-    LinkedHashMap<String, Object> groupParams = new LinkedHashMap<String, Object>();
-
-    groupParams.put("site", Boolean.TRUE);
-//    groupParams.put("site", Boolean.FALSE);
-    List<Group> groups;
-    int groupsCount;
-
-    if (layout.getGroup().isOrganization()) {
-        //        groupParams.put("organizationGroups", layout.getGroupId());
-//        groupParams.put("organizationsGroups", 64541L);
-
-        groupParams.put("active", Boolean.TRUE);
-
-        long organizationId = layout.getGroup().getOrganizationId();
-        System.out.println(GroupLocalServiceUtil.getOrganizationGroupsCount(organizationId));
-        System.out.println(layout.getGroupId());
-        System.out.println(organizationId);
-        System.out.println(GroupLocalServiceUtil.getOrganizationGroupsCount(64541L));
-
-        groupsCount = GroupLocalServiceUtil.getOrganizationGroupsCount(organizationId);
-        groups = GroupLocalServiceUtil.getOrganizationGroups(organizationId);
-//        groups.forEach(group1 -> System.out.println(group1.getGroupId()));
-
-
-    }else {
-        if (layout.getGroup().isUser()) {
-//        groupParams.put("usersGroups", user.getUserId());
-//            groupParams.put("usersGroups", layout.getUserId());
-            groupParams.put("usersGroups", layout.getGroup().getClassPK());
-            groupParams.put("active", Boolean.TRUE);
-
-        } else {
-            List types = new ArrayList();
-
-            types.add(Integer.valueOf(GroupConstants.TYPE_SITE_OPEN));
-            types.add(Integer.valueOf(GroupConstants.TYPE_SITE_RESTRICTED));
-
-            groupParams.put("types", types);
-            groupParams.put("active", Boolean.TRUE);
-        }
-
-        groupsCount = GroupLocalServiceUtil.searchCount(company.getCompanyId(), searchTerms.getKeywords(), groupParams);
-
-        groupSearch.setTotal(groupsCount);
-
-        groups = GroupLocalServiceUtil.search(
-                company.getCompanyId(),
-                searchTerms.getKeywords(),
-                groupParams, groupSearch.getStart(),
-                groupSearch.getEnd(),
-                groupSearch.getOrderByComparator());
-
-    }
-
-
-
-
-
-
-
-    Long layoutId = Long.parseLong(dummyField);
-//
-
-    if (layoutId != 0) {
-        List<Group> filteredGroups = new ArrayList<>();
-        for (Group group : groups) {
-            if ((group.getPublicLayoutSet().getLayoutSetPrototypeId() == layoutId) ||
-                    (group.getPrivateLayoutSet().getLayoutSetPrototypeId() == layoutId)){
-                filteredGroups.add(group);
-            }
-        }
-        groups = filteredGroups;
-    }
-
-//    List<Group> collect = groups.stream().filter(group1 -> {
-//        try {
-//            return LayoutLocalServiceUtil.getLayout(group1.getGroupId(), false, layoutId) != null;
-//        } catch (PortalException e) {
-//            e.printStackTrace();
-//        }
-//        return false;
-//    }).collect(Collectors.toList());
-
-
-
-
-    groupSearch.setResults(groups);
-
-
-
-    long[] groupIds = ListUtil.toLongArray(groups, Group.GROUP_ID_ACCESSOR);
-
-
-    Map<Long, Integer> groupUsersCounts = UserLocalServiceUtil.searchCounts(company.getCompanyId(), WorkflowConstants.STATUS_APPROVED, groupIds);
-
-
-
-
 %>
 
-<%--<clay:navigation-bar navigationItems="<%= navigationItems %>" />--%>
-
-
-<liferay-frontend:management-bar>
-    <liferay-frontend:management-bar-buttons>
-        <liferay-frontend:management-bar-display-buttons
-                displayViews='<%= new String[] {"icon", "list", "ADT", "table", "descriptive"} %>'
-                portletURL="<%= PortletURLUtil.clone(portletURL, renderResponse) %>"
-                selectedDisplayStyle="<%= displayStyle %>"
-        />
-    </liferay-frontend:management-bar-buttons>
-
-    <liferay-frontend:management-bar-filters>
-        <liferay-frontend:management-bar-navigation
-                navigationKeys='<%= new String[] {"all"} %>'
-                portletURL="<%= PortletURLUtil.clone(portletURL, renderResponse) %>"
-        />
-
-        <liferay-frontend:management-bar-sort
-                orderByCol="<%= groupSearch.getOrderByCol() %>"
-                orderByType="<%= groupSearch.getOrderByType() %>"
-                orderColumns='<%= new String[] {"name"} %>'
-                portletURL="<%= PortletURLUtil.clone(portletURL, renderResponse) %>"
-        />
-
-        <li>
-            <aui:form action="<%= portletURL %>" name="searchFm">
-                <liferay-portlet:renderURLParams varImpl="portletURL"/>
-
-                <liferay-ui:input-search
-                        autoFocus="<%=WindowState.MAXIMIZED.equals(portletURL.getWindowState()) %>"
-                        markupView="lexicon"/>
-            </aui:form>
-        </li>
-    </liferay-frontend:management-bar-filters>
-</liferay-frontend:management-bar>
-
-
-<p>
-   ID of template filter is  # <%= dummyField %> #
-</p>
-<p>
-    # Total sites number is - <%= groupsCount %> #
-</p>
-<div>
-<%--    <p><%= dummyDisplay.returnSomeString()%></p>--%>
-<%--    <p><%= dummyDisplay.returnSomeString("Some existing string")%></p>--%>
-<%--    <p><%= dummyDisplay.doSomethingWithLayout(layout)%></p>--%>
+<div class="container-fluid container-fluid-max-xl container-view">
+    <%--    <span class="sticker sticker-primary sticker-sm">ID of template filter is <%= dummyField %></span>--%>
+    <span class="label label-lg label-info">
+	    <span class="label-item label-item-expand">ID of template filter is: <%= dummyField %></span>
+    </span>
+</div>
+<div class="container-fluid">
+    <%--    <span class="sticker sticker-primary sticker-lg">Total sites number is <%= dummyDisplayContext.getTotalItems() %></span>--%>
+    <span class="label label-lg label-info">
+	    <span class="label-item label-item-expand">Total sites number is: <%= dummyDisplayContext.getTotalItems() %></span>
+    </span>
 </div>
 
 
+<clay:management-toolbar
+        componentId="siteDummyWebManagementToolbar"
+        showSearch="false"
+        itemsTotal="<%= dummyDisplayContext.getTotalItems() %>"
+        selectable="<%= false %>"
+        viewTypeItems="<%= dummyDisplayContext.getViewTypeItems() %>"
+/>
 
-<aui:form action="<%= portletURL.toString() %>" cssClass="container-fluid-1280" method="get" name="fm">
+<aui:form action="<%= dummyDisplayContext.getPortletURL() %>" cssClass="container-fluid-1280" method="get" name="fm">
     <liferay-ui:search-container
-            searchContainer="<%= groupSearch %>"
+            searchContainer="<%= dummyDisplayContext.getGroupSearchContainer() %>"
     >
         <liferay-ui:search-container-row
                 className="com.liferay.portal.kernel.model.Group"
@@ -241,7 +51,7 @@
 
                 if (group.getPublicLayoutsPageCount() > 0) {
                     rowURL = group.getDisplayURL(themeDisplay, false);
-                } else if (tabs1.equals("my-sites") && (group.getPrivateLayoutsPageCount() > 0)) {
+                } else if (group.getPrivateLayoutsPageCount() > 0) {
                     rowURL = group.getDisplayURL(themeDisplay, true);
                 }
             %>
@@ -309,7 +119,7 @@
 <%--                            path="/site_action.jsp"--%>
 <%--                    />--%>
 <%--                </c:when>--%>
-                <c:when test='<%= displayStyle.equals("icon") %>'>
+                <c:when test='<%= Objects.equals(dummyDisplayContext.getDisplayStyle(), "icon") %>'>
 
                     <%
                         row.setCssClass("entry-card lfr-asset-item");
@@ -329,7 +139,7 @@
                                 >
                                     <liferay-frontend:vertical-card-footer>
                                         <strong><liferay-ui:message
-                                                key="members"/></strong>: <%= String.valueOf(groupUsersCounts.get(group.getGroupId())) %>
+                                                key="members"/></strong>: <%= String.valueOf(dummyDisplayContext.getGroupUsersCounts(group.getGroupId())) %>
                                     </liferay-frontend:vertical-card-footer>
                                 </liferay-frontend:vertical-card>
                             </c:when>
@@ -345,14 +155,14 @@
                                 >
                                     <liferay-frontend:vertical-card-footer>
                                         <strong><liferay-ui:message
-                                                key="members"/></strong>: <%= String.valueOf(groupUsersCounts.get(group.getGroupId())) %>
+                                                key="members"/></strong>: <%= String.valueOf(dummyDisplayContext.getGroupUsersCounts(group.getGroupId())) %>
                                     </liferay-frontend:vertical-card-footer>
                                 </liferay-frontend:icon-vertical-card>
                             </c:otherwise>
                         </c:choose>
                     </liferay-ui:search-container-column-text>
                 </c:when>
-                <c:when test='<%= displayStyle.equals("list") %>'>
+                <c:when test='<%= Objects.equals(dummyDisplayContext.getDisplayStyle(), "list") %>'>
                     <liferay-ui:search-container-column-text
                             name="name"
                             orderable="<%= true %>"
@@ -371,7 +181,7 @@
                             </c:otherwise>
                         </c:choose>
 
-                        <c:if test='<%= !tabs1.equals("my-sites") && Validator.isNotNull(group.getDescription(locale)) %>'>
+                        <c:if test='<%= Validator.isNotNull(group.getDescription(locale)) %>'>
                             <br/>
 
                             <em><%= HtmlUtil.escape(group.getDescription(locale)) %>
@@ -381,21 +191,10 @@
 
                     <liferay-ui:search-container-column-text
                             name="members"
-                            value="<%= String.valueOf(groupUsersCounts.get(group.getGroupId())) %>"
+                            value="<%= String.valueOf(dummyDisplayContext.getGroupUsersCounts(group.getGroupId())) %>"
                     />
 
-<%--                    <c:if test='<%= tabs1.equals("my-sites")--%>
-<%--//                     &&--%>
-<%--//                    PropsValues.LIVE_USERS_ENABLED--%>
-<%--                    %>'>--%>
-<%--                        <liferay-ui:search-container-column-text--%>
-<%--                                name="online-now"--%>
-<%--                                value="<%=--%>
-<%--                                "3"--%>
-<%--//                                String.valueOf(LiveUsers.getGroupUsersCount(company.getCompanyId(), group.getGroupId()))--%>
-<%--                                %>"--%>
-<%--                        />--%>
-<%--                    </c:if>--%>
+
 
                     <liferay-ui:search-container-column-text
                             name="tags"
@@ -413,6 +212,6 @@
             </c:choose>
         </liferay-ui:search-container-row>
 
-        <liferay-ui:search-iterator displayStyle="<%= displayStyle %>" markupView="lexicon"/>
+        <liferay-ui:search-iterator displayStyle="<%= dummyDisplayContext.getDisplayStyle() %>" markupView="lexicon"/>
     </liferay-ui:search-container>
 </aui:form>
