@@ -1,4 +1,3 @@
-
 <%@ include file="/init.jsp" %>
 
 <%
@@ -29,31 +28,35 @@
             type="hidden"
             value="<%= configurationRenderURL %>"
     />
+    <div class="lfr-form-content">
+        <div class="sheet sheet-lg">
 
-    <aui:fieldset-group markupView="lexicon">
-    <aui:fieldset>
+            <aui:fieldset-group markupView="lexicon">
+                <aui:fieldset>
 
 
-    <aui:select label="Dummy field" name="dummyField" value="<%= dummyField %>">
-        <aui:option value="<%= "0" %>">All sites</aui:option>
-        <%
-            for (LayoutSetPrototype prototype : layoutSetPrototypes) {
-                String name = prototype.getName(Locale.US);
-                long prototypeId = prototype.getLayoutSetPrototypeId();
-        %>
-        <aui:option label="<%= name %>" value="<%= prototypeId %>" />
-        <%
-        }
-        %>
+                    <aui:select label="Dummy field" name="dummyField" value="<%= dummyField %>">
+                        <aui:option value="<%= "0" %>">All sites</aui:option>
+                        <%
+                            for (LayoutSetPrototype prototype : layoutSetPrototypes) {
+                                String name = prototype.getName(Locale.US);
+                                long prototypeId = prototype.getLayoutSetPrototypeId();
+                        %>
+                        <aui:option label="<%= name %>" value="<%= prototypeId %>"/>
+                        <%
+                            }
+                        %>
 
-    </aui:select>
-    </aui:fieldset>
-    </aui:fieldset-group>
+                    </aui:select>
+                </aui:fieldset>
+            </aui:fieldset-group>
+        </div>
+    </div>
 
 
     <aui:button-row>
         <aui:button type="submit"></aui:button>
-<%--        <aui:button href="<%= redirect %>" type="cancel" />--%>
+        <%--        <aui:button href="<%= redirect %>" type="cancel" />--%>
 
     </aui:button-row>
 </aui:form>
