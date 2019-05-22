@@ -32,5 +32,8 @@ dependencies {
 
 //	compileOnly project(":apps:foundation:frontend-taglib:frontend-taglib-clay")
 //	compile project(":apps:web-experience:asset:asset-taglib")
+	
+	compileOnly group: 'com.liferay', name: 'com.liferay.dynamic.data.mapping.taglib', version: '2.1.12'
+
 
 }

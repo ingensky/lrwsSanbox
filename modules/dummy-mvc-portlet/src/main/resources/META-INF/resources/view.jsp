@@ -3,13 +3,25 @@
 <%!
     private SearchContainer<Object> searchContainer;
     private GroupWrapper group;
+    private ResultRow row;
+
 %>
 
 <%
     boolean doConfigure;
     doConfigure = Validator.isNull(dummyField);
     System.out.println(dummyField);
+
+    HashMap<String, Object> contextObjects = new HashMap<>();
 %>
+
+<liferay-ddm:template-renderer
+        className="<%= Group.class.getName() %>"
+        contextObjects="<%= contextObjects %>"
+        displayStyle="<%= displayStyle %>"
+        displayStyleGroupId="<%= displayStyleGroupId %>"
+        entries="<%= dummyDisplayContext.getGroupSearchContainer().getResults() %>"
+>
 
 <div class="container-fluid container-fluid-max-xl container-view">
     <%--    <span class="sticker sticker-primary sticker-sm">ID of template filter is <%= dummyField %></span>--%>
@@ -56,69 +68,16 @@
                 }
             %>
 
+
             <c:choose>
-<%--                <c:when test='<%= displayStyle.equals("descriptive") %>'>--%>
-<%--                    <c:choose>--%>
-<%--                        <c:when test="<%= Validator.isNotNull(siteImageURL) %>">--%>
-<%--                            <liferay-ui:search-container-column-image--%>
-<%--                                    src="<%= siteImageURL %>"--%>
-<%--                            />--%>
-<%--                        </c:when>--%>
-<%--                        <c:otherwise>--%>
-<%--                            <liferay-ui:search-container-column-icon--%>
-<%--                                    icon="sites"--%>
-<%--                            />--%>
-<%--                        </c:otherwise>--%>
-<%--                    </c:choose>--%>
+                <c:when test='<%= Objects.equals(dummyDisplayContext.getDisplayStyle(), "adt") %>'>
+                    <div class="sheet">
+                    <h4>
+                        <%= group.getName() %>
+                    </h4>
+                    </div>
 
-<%--                    <liferay-ui:search-container-column-text--%>
-<%--                            colspan="<%= 2 %>"--%>
-<%--                    >--%>
-<%--                        <h5>--%>
-<%--                            <c:choose>--%>
-<%--                                <c:when test="<%= Validator.isNotNull(rowURL) %>">--%>
-<%--                                    <a href="<%= rowURL %>" target="_blank">--%>
-<%--                                        <strong><%= HtmlUtil.escape(group.getDescriptiveName(locale)) %>--%>
-<%--                                        </strong>--%>
-<%--                                    </a>--%>
-<%--                                </c:when>--%>
-<%--                                <c:otherwise>--%>
-<%--                                    <strong><%= HtmlUtil.escape(group.getDescriptiveName(locale)) %>--%>
-<%--                                    </strong>--%>
-<%--                                </c:otherwise>--%>
-<%--                            </c:choose>--%>
-<%--                        </h5>--%>
-
-<%--                        <c:if test='<%= !tabs1.equals("my-sites") && Validator.isNotNull(group.getDescription(locale)) %>'>--%>
-<%--                            <h6 class="text-default">--%>
-<%--                                <%= HtmlUtil.escape(group.getDescription(locale)) %>--%>
-<%--                            </h6>--%>
-<%--                        </c:if>--%>
-
-<%--                        <h6 class="text-default">--%>
-<%--                            <liferay-asset:asset-tags-summary--%>
-<%--                                    className="<%= Group.class.getName() %>"--%>
-<%--                                    classPK="<%= group.getGroupId() %>"--%>
-<%--                            />--%>
-<%--                        </h6>--%>
-
-<%--                        <h6 class="text-default">--%>
-<%--                            <strong><liferay-ui:message--%>
-<%--                                    key="members"/></strong>: <%= GetterUtil.getInteger(groupUsersCounts.get(group.getGroupId())) %>--%>
-<%--                        </h6>--%>
-
-<%--                        <c:if test='<%= tabs1.equals("my-sites") && PropsValues.LIVE_USERS_ENABLED %>'>--%>
-<%--                            <h6 class="text-default">--%>
-<%--                                <strong><liferay-ui:message--%>
-<%--                                        key="online-now"/></strong>: <%= String.valueOf(LiveUsers.getGroupUsersCount(company.getCompanyId(), group.getGroupId())) %>--%>
-<%--                            </h6>--%>
-<%--                        </c:if>--%>
-<%--                    </liferay-ui:search-container-column-text>--%>
-
-<%--                    <liferay-ui:search-container-column-jsp--%>
-<%--                            path="/site_action.jsp"--%>
-<%--                    />--%>
-<%--                </c:when>--%>
+                </c:when>
                 <c:when test='<%= Objects.equals(dummyDisplayContext.getDisplayStyle(), "icon") %>'>
 
                     <%
@@ -138,6 +97,7 @@
                                         url="<%= rowURL %>"
                                 >
                                     <liferay-frontend:vertical-card-footer>
+                                        <a href="8.8.8.8">Google</a>
                                         <strong><liferay-ui:message
                                                 key="members"/></strong>: <%= String.valueOf(dummyDisplayContext.getGroupUsersCounts(group.getGroupId())) %>
                                     </liferay-frontend:vertical-card-footer>
@@ -154,6 +114,7 @@
                                         url="<%= rowURL %>"
                                 >
                                     <liferay-frontend:vertical-card-footer>
+                                        <a href="8.8.8.8">Google</a>
                                         <strong><liferay-ui:message
                                                 key="members"/></strong>: <%= String.valueOf(dummyDisplayContext.getGroupUsersCounts(group.getGroupId())) %>
                                     </liferay-frontend:vertical-card-footer>
@@ -163,6 +124,7 @@
                     </liferay-ui:search-container-column-text>
                 </c:when>
                 <c:when test='<%= Objects.equals(dummyDisplayContext.getDisplayStyle(), "list") %>'>
+
                     <liferay-ui:search-container-column-text
                             name="name"
                             orderable="<%= true %>"
@@ -177,6 +139,7 @@
                             </c:when>
                             <c:otherwise>
                                 <strong><%= HtmlUtil.escape(group.getDescriptiveName(locale)) %>
+                                    <%= group.getName(Locale.US)%>
                                 </strong>
                             </c:otherwise>
                         </c:choose>
@@ -215,3 +178,5 @@
         <liferay-ui:search-iterator displayStyle="<%= dummyDisplayContext.getDisplayStyle() %>" markupView="lexicon"/>
     </liferay-ui:search-container>
 </aui:form>
+
+</liferay-ddm:template-renderer>

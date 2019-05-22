@@ -1,3 +1,4 @@
+<%@ page import="com.liferay.portal.kernel.model.Layout" %>
 <%@ include file="/init.jsp" %>
 
 <%
@@ -48,6 +49,16 @@
                         %>
 
                     </aui:select>
+
+                    <div class="display-template">
+                        <liferay-ddm:template-selector
+                                className="<%= Group.class.getName() %>"
+                                displayStyle="<%= displayStyle %>"
+                                displayStyleGroupId="<%= displayStyleGroupId %>"
+                                refreshURL="<%= configurationRenderURL %>"
+                                showEmptyOption="<%= true %>"
+                        />
+                    </div>
                 </aui:fieldset>
             </aui:fieldset-group>
         </div>
@@ -55,8 +66,9 @@
 
 
     <aui:button-row>
-        <aui:button type="submit"></aui:button>
-        <%--        <aui:button href="<%= redirect %>" type="cancel" />--%>
+        <aui:button type="submit"/>
+        <aui:button type="cancel" />
+
 
     </aui:button-row>
 </aui:form>
