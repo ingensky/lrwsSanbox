@@ -1,4 +1,4 @@
-package dummy.mvc.portlet.template;
+package sunrise.mvc.portlet.template;
 
 
 import com.liferay.portal.kernel.language.LanguageUtil;
@@ -8,7 +8,7 @@ import com.liferay.portal.kernel.portletdisplaytemplate.PortletDisplayTemplateMa
 import com.liferay.portal.kernel.template.TemplateHandler;
 import com.liferay.portal.kernel.template.TemplateVariableGroup;
 import com.liferay.portal.kernel.util.Portal;
-import dummy.mvc.portlet.constants.DummyMvcPortletKeys;
+import sunrise.mvc.portlet.constants.DummyMvcPortletKeys;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 

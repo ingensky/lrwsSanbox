@@ -1,4 +1,4 @@
-package dummy.mvc.portlet.display;
+package sunrise.mvc.portlet.display;
 
 import com.liferay.frontend.taglib.clay.servlet.taglib.util.ViewTypeItem;
 import com.liferay.frontend.taglib.clay.servlet.taglib.util.ViewTypeItemList;
@@ -128,17 +128,17 @@ public class DummyDisplayContext {
 
         if (Validator.isNotNull(displayStyle)) {
             viewTypeItem.setActive(
-                    Objects.equals(displayStyle, "adt"));
+                    Objects.equals(displayStyle, "names"));
         }
 
         PortletURL portletURL = this.getPortletURL();
         if (portletURL != null) {
-            viewTypeItem.setHref(portletURL, "displayStyle", "adt");
+            viewTypeItem.setHref(portletURL, "displayStyle", "names");
         }
 
         viewTypeItem.setIcon("sun");
         viewTypeItem.setLabel(
-                LanguageUtil.get(LocaleUtil.getMostRelevantLocale(), "ADT"));
+                LanguageUtil.get(LocaleUtil.getMostRelevantLocale(), "NAMES"));
 
         return viewTypeItem;
     }

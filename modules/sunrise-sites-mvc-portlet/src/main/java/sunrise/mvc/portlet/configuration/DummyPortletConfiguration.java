@@ -1,9 +1,9 @@
-package dummy.mvc.portlet.configuration;
+package sunrise.mvc.portlet.configuration;
 
 import aQute.bnd.annotation.metatype.Meta;
 
 @Meta.OCD(
-        id = "dummy.mvc.portlet.portlet.DummyMvcPortlet"
+        id = "sunrise.mvc.portlet.portlet.DummyMvcPortlet"
 )
 public interface DummyPortletConfiguration {
 

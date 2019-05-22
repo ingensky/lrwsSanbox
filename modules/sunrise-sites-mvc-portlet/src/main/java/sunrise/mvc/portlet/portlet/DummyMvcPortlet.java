@@ -1,12 +1,12 @@
-package dummy.mvc.portlet.portlet;
+package sunrise.mvc.portlet.portlet;
 
 import com.liferay.portal.configuration.metatype.bnd.util.ConfigurableUtil;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
 import com.liferay.portal.kernel.util.ParamUtil;
-import dummy.mvc.portlet.configuration.DummyPortletConfiguration;
-import dummy.mvc.portlet.constants.DummyMvcPortletKeys;
+import sunrise.mvc.portlet.configuration.DummyPortletConfiguration;
+import sunrise.mvc.portlet.constants.DummyMvcPortletKeys;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Modified;
@@ -22,7 +22,7 @@ import java.util.Map;
  * @author sky
  */
 @Component(
-	configurationPid = "dummy.mvc.portlet.portlet.DummyMvcPortlet",
+	configurationPid = "sunrise.mvc.portlet.portlet.DummyMvcPortlet",
 	immediate = true,
 	property = {
 		"com.liferay.portlet.display-category=category.sample",
@@ -44,8 +44,8 @@ public class DummyMvcPortlet extends MVCPortlet {
 	@Override
 	public void doView(RenderRequest renderRequest, RenderResponse renderResponse) throws IOException, PortletException {
 		ParamUtil.getString(renderRequest, "something");
-		System.out.println("im in dummy mvcportlet");
-		_log.info("dummy configuration field " + _dummyPortletConfiguration.dummyField());
+		System.out.println("im in sunrise mvcportlet");
+		_log.info("sunrise configuration field " + _dummyPortletConfiguration.dummyField());
 		super.doView(renderRequest, renderResponse);
 	}
 

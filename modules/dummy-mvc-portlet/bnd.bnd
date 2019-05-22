@@ -1,5 +1,0 @@
-Bundle-Name: dummy-mvc-portlet
-Bundle-SymbolicName: dummy.mvc.portlet
-Bundle-Version: 1.0.0
-Export-Package: dummy.mvc.portlet.constants
--metatype: *

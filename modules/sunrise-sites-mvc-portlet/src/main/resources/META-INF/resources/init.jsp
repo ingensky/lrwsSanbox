@@ -29,9 +29,9 @@
 <%@ page import="com.liferay.portal.kernel.model.Layout" %>
 
 
-<%@ page import="dummy.mvc.portlet.configuration.DummyPortletConfiguration" %>
-<%@ page import="dummy.mvc.portlet.display.DummyDisplayContext" %>
-<%@ page import="dummy.mvc.portlet.constants.DummyMvcPortletKeys" %>
+<%@ page import="sunrise.mvc.portlet.configuration.DummyPortletConfiguration" %>
+<%@ page import="sunrise.mvc.portlet.display.DummyDisplayContext" %>
+<%@ page import="sunrise.mvc.portlet.constants.DummyMvcPortletKeys" %>
 
 
 

@@ -74,7 +74,7 @@
 
 
             <c:choose>
-                <c:when test='<%= Objects.equals(dummyDisplayContext.getDisplayStyle(), "adt") %>'>
+                <c:when test='<%= Objects.equals(dummyDisplayContext.getDisplayStyle(), "names") %>'>
                     <div class="sheet">
                     <h4>
                         <%= group.getName() %>

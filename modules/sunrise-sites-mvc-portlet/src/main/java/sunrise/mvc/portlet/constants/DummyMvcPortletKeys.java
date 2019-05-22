@@ -1,4 +1,4 @@
-package dummy.mvc.portlet.constants;
+package sunrise.mvc.portlet.constants;
 
 /**
  * @author sky

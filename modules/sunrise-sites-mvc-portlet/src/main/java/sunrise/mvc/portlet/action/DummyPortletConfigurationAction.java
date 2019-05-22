@@ -1,14 +1,13 @@
-package dummy.mvc.portlet.action;
+package sunrise.mvc.portlet.action;
 
-import aQute.bnd.annotation.metatype.Configurable;
 import com.liferay.portal.configuration.metatype.bnd.util.ConfigurableUtil;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.portlet.ConfigurationAction;
 import com.liferay.portal.kernel.portlet.DefaultConfigurationAction;
 import com.liferay.portal.kernel.util.ParamUtil;
-import dummy.mvc.portlet.configuration.DummyPortletConfiguration;
-import dummy.mvc.portlet.constants.DummyMvcPortletKeys;
+import sunrise.mvc.portlet.configuration.DummyPortletConfiguration;
+import sunrise.mvc.portlet.constants.DummyMvcPortletKeys;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.ConfigurationPolicy;
@@ -22,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
 
 @Component(
-        configurationPid = "dummy.mvc.portlet.portlet.DummyMvcPortlet",
+        configurationPid = "sunrise.mvc.portlet.portlet.DummyMvcPortlet",
         configurationPolicy = ConfigurationPolicy.OPTIONAL,
         immediate = true,
         property = "javax.portlet.name="+ DummyMvcPortletKeys.DummyMvc,
