@@ -153,6 +153,8 @@ public class DummyDisplayContext {
         GroupSearchTerms searchTerms = (GroupSearchTerms) groupSearch.getSearchTerms();
         LinkedHashMap<String, Object> groupParams = new LinkedHashMap<>();
 
+        groupSearch.setDelta(5);
+
         groupParams.put("site", Boolean.TRUE);
 
         List<Group> groups;
@@ -190,6 +192,7 @@ public class DummyDisplayContext {
         }
 
         groupSearch.setTotal(groupsCount);
+
 
         long layoutId = Long.parseLong(dummyField);
 

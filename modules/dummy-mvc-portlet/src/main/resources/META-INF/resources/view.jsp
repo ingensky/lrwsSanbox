@@ -1,3 +1,4 @@
+<%@ page import="javax.portlet.PortletURL" %>
 <%@ include file="/init.jsp" %>
 
 <%!
@@ -13,6 +14,7 @@
     System.out.println(dummyField);
 
     HashMap<String, Object> contextObjects = new HashMap<>();
+
 %>
 
 <liferay-ddm:template-renderer
@@ -49,6 +51,8 @@
     <liferay-ui:search-container
             searchContainer="<%= dummyDisplayContext.getGroupSearchContainer() %>"
     >
+
+
         <liferay-ui:search-container-row
                 className="com.liferay.portal.kernel.model.Group"
                 keyProperty="groupId"
@@ -97,7 +101,6 @@
                                         url="<%= rowURL %>"
                                 >
                                     <liferay-frontend:vertical-card-footer>
-                                        <a href="8.8.8.8">Google</a>
                                         <strong><liferay-ui:message
                                                 key="members"/></strong>: <%= String.valueOf(dummyDisplayContext.getGroupUsersCounts(group.getGroupId())) %>
                                     </liferay-frontend:vertical-card-footer>
@@ -114,7 +117,6 @@
                                         url="<%= rowURL %>"
                                 >
                                     <liferay-frontend:vertical-card-footer>
-                                        <a href="8.8.8.8">Google</a>
                                         <strong><liferay-ui:message
                                                 key="members"/></strong>: <%= String.valueOf(dummyDisplayContext.getGroupUsersCounts(group.getGroupId())) %>
                                     </liferay-frontend:vertical-card-footer>
