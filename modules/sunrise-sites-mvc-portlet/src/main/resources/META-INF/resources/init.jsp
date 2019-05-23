@@ -59,7 +59,6 @@
 
     SitesDisplayContext sitesDisplayContext = new SitesDisplayContext(renderRequest,
             renderResponse,
-            themeDisplay,
             layout,
             company,
             sitesTemplateId);

@@ -10,7 +10,6 @@ import com.liferay.portal.kernel.model.GroupConstants;
 import com.liferay.portal.kernel.model.Layout;
 import com.liferay.portal.kernel.service.GroupLocalServiceUtil;
 import com.liferay.portal.kernel.service.UserLocalServiceUtil;
-import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.*;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
 import com.liferay.portlet.usersadmin.search.GroupSearch;
@@ -19,32 +18,26 @@ import com.liferay.portlet.usersadmin.search.GroupSearchTerms;
 import javax.portlet.PortletURL;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
-import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 import java.util.stream.Collectors;
 
 /**
- * Configurates displaying context in portlet
+ * Configures displaying context in portlet jsp
  *
+ * @author sky
  */
 public class SitesDisplayContext {
     private String displayStyle;
-    private GroupSearch groupSearch;
     private final RenderRequest renderRequest;
     private final RenderResponse renderResponse;
-    private final HttpServletRequest request;
-    private ThemeDisplay themeDisplay;
     private Layout layout;
     private Company company;
     private String sitesTemplateId;
 
     public SitesDisplayContext(RenderRequest renderRequest, RenderResponse renderResponse,
-                               ThemeDisplay themeDisplay, Layout layout,
-                               Company company, String sitesTemplateId) {
+                               Layout layout, Company company, String sitesTemplateId) {
         this.renderRequest = renderRequest;
         this.renderResponse = renderResponse;
-        this.request = PortalUtil.getHttpServletRequest(renderRequest);
-        this.themeDisplay = themeDisplay;
         this.layout = layout;
         this.company = company;
         this.sitesTemplateId = sitesTemplateId;
@@ -52,8 +45,6 @@ public class SitesDisplayContext {
 
     /**
      * Create render url from renderResponse with display style
-     *
-     * @return
      */
     public PortletURL getPortletURL() {
         PortletURL portletURL = this.renderResponse.createRenderURL();
@@ -65,7 +56,6 @@ public class SitesDisplayContext {
      * Attempt to get displayStyle from renderRequest, if displayStyle is null, or returns it
      * By default set to "icon" (card style)
      *
-     * @return
      */
     public String getDisplayStyle() {
         if (Validator.isNotNull(this.displayStyle)) {
@@ -78,22 +68,7 @@ public class SitesDisplayContext {
 
 
     /**
-     * Returns PortletURL as string with cleared keywords
-     * (for implementation with search form)
-     *
-     * @return
-     */
-    public String getClearResultsURL() {
-        PortletURL clearResultsURL = this.getPortletURL();
-        clearResultsURL.setParameter("keywords", "");
-        return clearResultsURL.toString();
-    }
-
-
-    /**
-     * Return number of founded by search items
-     *
-     * @return
+     * @return number of founded by search items
      */
     public int getTotalItems() {
         GroupSearch groupSearch = this.getGroupSearchContainer();
@@ -101,9 +76,7 @@ public class SitesDisplayContext {
     }
 
     /**
-     * Returns displayStyles for rendering items
-     *
-     * @return
+     * @return  displayStyles for rendering items
      */
     public List<ViewTypeItem> getViewTypeItems() {
         ViewTypeItemList viewTypeItems = new ViewTypeItemList(this.getPortletURL(), this.getDisplayStyle()) {
@@ -143,9 +116,9 @@ public class SitesDisplayContext {
     }
 
     /**
-     * Returns group search result
+     * Creates GroupSearch and sets its results and total
      *
-     * @return
+     * @return group search
      */
     public GroupSearch getGroupSearchContainer() {
         GroupSearch groupSearch = new GroupSearch(this.renderRequest, this.getPortletURL());
@@ -161,6 +134,7 @@ public class SitesDisplayContext {
         int groupsCount;
 
         long layoutId = Long.parseLong(sitesTemplateId);
+
         if (layoutId != 0) {
             start = -1;
             end = -1;
@@ -219,11 +193,14 @@ public class SitesDisplayContext {
             groupSearch.setResults(groups);
         }
 
-        this.groupSearch = groupSearch;
-
-        return this.groupSearch;
+        return groupSearch;
     }
 
+
+    /**
+     * @param groupId
+     * @return number of members of a group
+     */
     public int getGroupUsersCounts(long groupId) {
         GroupSearch groupSearch = this.getGroupSearchContainer();
         long[] groupIds = ListUtil.toLongArray(groupSearch.getResults(), Group.GROUP_ID_ACCESSOR);

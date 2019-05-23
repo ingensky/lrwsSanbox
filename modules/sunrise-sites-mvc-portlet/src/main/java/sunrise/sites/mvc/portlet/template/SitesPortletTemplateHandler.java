@@ -8,14 +8,21 @@ import com.liferay.portal.kernel.portletdisplaytemplate.PortletDisplayTemplateMa
 import com.liferay.portal.kernel.template.TemplateHandler;
 import com.liferay.portal.kernel.template.TemplateVariableGroup;
 import com.liferay.portal.kernel.util.Portal;
-import sunrise.sites.mvc.portlet.constants.SitesPortletKeys;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
+import sunrise.sites.mvc.portlet.constants.SitesPortletKeys;
 
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+
+/**
+ * Class for Application Display Template handling
+ *
+ * @author sky
+ * @see <a href="https://dev.liferay.com/en/develop/tutorials/-/knowledge_base/7-0/implementing-application-display-templates">Liferay Docs</a>
+ */
 @Component(
         immediate = true,
         property = "javax.portlet.name=" + SitesPortletKeys.SITES,
@@ -33,9 +40,7 @@ public class SitesPortletTemplateHandler extends BasePortletDisplayTemplateHandl
 
     @Override
     public String getName(Locale locale) {
-        String portletTitle = portal.getPortletTitle(
-                SitesPortletKeys.SITES, locale);
-
+        String portletTitle = portal.getPortletTitle(SitesPortletKeys.SITES, locale);
         return LanguageUtil.format(locale, "x-template", portletTitle, false);
     }
 
@@ -47,8 +52,7 @@ public class SitesPortletTemplateHandler extends BasePortletDisplayTemplateHandl
     @Override
     public Map<String, TemplateVariableGroup> getTemplateVariableGroups(long classPK, String language, Locale locale) throws Exception {
         Map<String, TemplateVariableGroup> templateVariableGroups = super.getTemplateVariableGroups(classPK, language, locale);
-        TemplateVariableGroup fieldsTemplateVariableGroup =
-                templateVariableGroups.get("fields");
+        TemplateVariableGroup fieldsTemplateVariableGroup = templateVariableGroups.get("fields");
 
         fieldsTemplateVariableGroup.empty();
 
