@@ -8,7 +8,7 @@ import aQute.bnd.annotation.metatype.Meta;
 public interface SitesPortletConfiguration {
 
     @Meta.AD(required = false)
-    public String dummyField();
+    String sitesTemplateId();
 
 
 }

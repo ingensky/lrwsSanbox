@@ -47,9 +47,9 @@ public class SitesPortletConfigurationAction extends DefaultConfigurationAction 
     @Override
     public void processAction(PortletConfig portletConfig, ActionRequest actionRequest, ActionResponse actionResponse) throws Exception {
 
-        String dummyField = ParamUtil.getString(actionRequest, "dummyField");
+        String sitesTemplateId = ParamUtil.getString(actionRequest, "sitesTemplateId");
 
-        setPreference(actionRequest, "dummyField", dummyField);
+        setPreference(actionRequest, "sitesTemplateId", sitesTemplateId);
 
         super.processAction(portletConfig, actionRequest, actionResponse);
     }

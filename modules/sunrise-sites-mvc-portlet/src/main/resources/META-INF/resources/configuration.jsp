@@ -1,10 +1,7 @@
-<%@ page import="com.liferay.portal.kernel.model.Layout" %>
 <%@ include file="/init.jsp" %>
 
 <%
     List<LayoutSetPrototype> layoutSetPrototypes = LayoutSetPrototypeLocalServiceUtil.getLayoutSetPrototypes(company.getCompanyId());
-    int lengthTemplate = layoutSetPrototypes.size();
-
 %>
 
 <liferay-portlet:actionURL
@@ -36,8 +33,8 @@
                 <aui:fieldset>
 
 
-                    <aui:select label="Dummy field" name="dummyField" value="<%= dummyField %>">
-                        <aui:option value="<%= "0" %>">All sites</aui:option>
+                    <aui:select label="show-from-template" name="sitesTemplateId" value="<%= sitesTemplateId %>">
+                        <aui:option value="<%= "0" %>" label="show-all-sites"/>
                         <%
                             for (LayoutSetPrototype prototype : layoutSetPrototypes) {
                                 String name = prototype.getName(Locale.US);
@@ -64,11 +61,8 @@
         </div>
     </div>
 
-
     <aui:button-row>
         <aui:button type="submit"/>
         <aui:button type="cancel" />
-
-
     </aui:button-row>
 </aui:form>

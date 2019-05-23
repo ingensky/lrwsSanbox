@@ -29,6 +29,7 @@
 <%@ page import="com.liferay.portal.kernel.model.Layout" %>
 
 
+
 <%@ page import="sunrise.sites.mvc.portlet.configuration.SitesPortletConfiguration" %>
 <%@ page import="sunrise.sites.mvc.portlet.display.SitesDisplayContext" %>
 <%@ page import="sunrise.sites.mvc.portlet.constants.SitesPortletKeys" %>
@@ -41,18 +42,18 @@
 <%
 
 
-    SitesPortletConfiguration demoConfiguration = (SitesPortletConfiguration)
+    SitesPortletConfiguration sitesPortletConfiguration = (SitesPortletConfiguration)
             renderRequest.getAttribute(SitesPortletConfiguration.class.getName());
 
-    String dummyField = StringPool.BLANK;
+    String sitesTemplateId = StringPool.BLANK;
 
 
-    if (Validator.isNotNull(demoConfiguration)) {
-        dummyField = portletPreferences.getValue(
-                        "dummyField", demoConfiguration.dummyField());
+    if (Validator.isNotNull(sitesPortletConfiguration)) {
+        sitesTemplateId = portletPreferences.getValue(
+                        "sitesTemplateId", sitesPortletConfiguration.sitesTemplateId());
 
     }else{
-        dummyField =	portletPreferences.getValue("dummyField", "0");
+        sitesTemplateId =	portletPreferences.getValue("sitesTemplateId", "0");
 
     }
 
@@ -61,7 +62,7 @@
             themeDisplay,
             layout,
             company,
-            dummyField);
+            sitesTemplateId);
 
     String displayStyle = GetterUtil.getString(portletPreferences.getValue("displayStyle", StringPool.BLANK));
     long displayStyleGroupId = GetterUtil.getLong(portletPreferences.getValue("displayStyleGroupId", null), scopeGroupId);

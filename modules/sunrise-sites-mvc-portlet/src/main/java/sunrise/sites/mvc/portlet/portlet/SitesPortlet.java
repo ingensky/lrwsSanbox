@@ -45,7 +45,7 @@ public class SitesPortlet extends MVCPortlet {
 	public void doView(RenderRequest renderRequest, RenderResponse renderResponse) throws IOException, PortletException {
 		ParamUtil.getString(renderRequest, "something");
 		System.out.println("im in sunrise mvcportlet");
-		_log.info("sunrise configuration field " + sitesPortletConfiguration.dummyField());
+		_log.info("sunrise configuration field " + sitesPortletConfiguration.sitesTemplateId());
 		super.doView(renderRequest, renderResponse);
 	}
 

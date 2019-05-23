@@ -10,8 +10,8 @@
 
 <%
     boolean doConfigure;
-    doConfigure = Validator.isNull(dummyField);
-    System.out.println(dummyField);
+    doConfigure = Validator.isNull(sitesTemplateId);
+    System.out.println(sitesTemplateId);
 
     HashMap<String, Object> contextObjects = new HashMap<>();
 
@@ -26,9 +26,9 @@
 >
 
 <div class="container-fluid container-fluid-max-xl container-view">
-    <%--    <span class="sticker sticker-primary sticker-sm">ID of template filter is <%= dummyField %></span>--%>
+    <%--    <span class="sticker sticker-primary sticker-sm">ID of template filter is <%= sitesTemplateId %></span>--%>
     <span class="label label-lg label-info">
-	    <span class="label-item label-item-expand">ID of template filter is: <%= dummyField %></span>
+	    <span class="label-item label-item-expand">ID of template filter is: <%= sitesTemplateId %></span>
     </span>
 </div>
 <div class="container-fluid">

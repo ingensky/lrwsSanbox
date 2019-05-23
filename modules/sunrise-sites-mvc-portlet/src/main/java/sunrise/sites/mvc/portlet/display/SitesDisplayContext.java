@@ -36,18 +36,18 @@ public class SitesDisplayContext {
     private ThemeDisplay themeDisplay;
     private Layout layout;
     private Company company;
-    private String dummyField;
+    private String sitesTemplateId;
 
     public SitesDisplayContext(RenderRequest renderRequest, RenderResponse renderResponse,
                                ThemeDisplay themeDisplay, Layout layout,
-                               Company company, String dummyField) {
+                               Company company, String sitesTemplateId) {
         this.renderRequest = renderRequest;
         this.renderResponse = renderResponse;
         this.request = PortalUtil.getHttpServletRequest(renderRequest);
         this.themeDisplay = themeDisplay;
         this.layout = layout;
         this.company = company;
-        this.dummyField = dummyField;
+        this.sitesTemplateId = sitesTemplateId;
     }
 
     /**
@@ -160,7 +160,7 @@ public class SitesDisplayContext {
         List<Group> groups;
         int groupsCount;
 
-        long layoutId = Long.parseLong(dummyField);
+        long layoutId = Long.parseLong(sitesTemplateId);
         if (layoutId != 0) {
             start = -1;
             end = -1;
