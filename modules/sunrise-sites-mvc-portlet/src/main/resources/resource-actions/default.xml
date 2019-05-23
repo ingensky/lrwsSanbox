@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
-<!DOCTYPE resource-action-mapping PUBLIC "-//Liferay//DTD Resource Action Mapping 7.0.0//EN" "http://www.liferay.com/dtd/liferay-resource-action-mapping_7_0_0.dtd">
+<!DOCTYPE resource-action-mapping PUBLIC "-//Liferay//DTD Resource Action Mapping 7.0.0//EN"
+        "http://www.liferay.com/dtd/liferay-resource-action-mapping_7_0_0.dtd">
 
 <resource-action-mapping>
-
 
     <portlet-resource>
         <portlet-name>sunrise_sites_mvc_portlet_portlet_SitesPortlet</portlet-name>
@@ -25,6 +25,5 @@
             </guest-unsupported>
         </permissions>
     </portlet-resource>
-
 
 </resource-action-mapping>

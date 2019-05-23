@@ -1,5 +1,7 @@
 <%@ page import="com.liferay.portal.kernel.dao.search.SearchContainer" %>
 <%@ page import="com.liferay.portal.kernel.model.Group" %>
+<%@ page import="javax.portlet.PortletURL" %>
+
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
@@ -21,39 +23,32 @@
 <%@ page import="com.liferay.portal.kernel.service.LayoutSetPrototypeLocalServiceUtil" %>
 <%@ page import="com.liferay.portal.kernel.util.*" %>
 <%@ page import="com.liferay.taglib.search.ResultRow" %>
-<%@ page import="java.util.List" %>
-<%@ page import="java.util.Locale" %>
-<%@ page import="java.util.Objects" %>
-<%@ page import="com.liferay.portal.kernel.dao.search.RowChecker" %>
-<%@ page import="java.util.HashMap" %>
-<%@ page import="com.liferay.portal.kernel.model.Layout" %>
-
-
 
 <%@ page import="sunrise.sites.mvc.portlet.configuration.SitesPortletConfiguration" %>
 <%@ page import="sunrise.sites.mvc.portlet.display.SitesDisplayContext" %>
-<%@ page import="sunrise.sites.mvc.portlet.constants.SitesPortletKeys" %>
+<%@ page import="java.util.HashMap" %>
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.Locale" %>
+<%@ page import="java.util.Objects" %>
 
 
-<liferay-theme:defineObjects />
 
-<portlet:defineObjects />
+<liferay-theme:defineObjects/>
+
+<portlet:defineObjects/>
 
 <%
-
-
     SitesPortletConfiguration sitesPortletConfiguration = (SitesPortletConfiguration)
             renderRequest.getAttribute(SitesPortletConfiguration.class.getName());
 
     String sitesTemplateId = StringPool.BLANK;
 
-
     if (Validator.isNotNull(sitesPortletConfiguration)) {
         sitesTemplateId = portletPreferences.getValue(
-                        "sitesTemplateId", sitesPortletConfiguration.sitesTemplateId());
+                "sitesTemplateId", sitesPortletConfiguration.sitesTemplateId());
 
-    }else{
-        sitesTemplateId =	portletPreferences.getValue("sitesTemplateId", "0");
+    } else {
+        sitesTemplateId = portletPreferences.getValue("sitesTemplateId", "0");
 
     }
 

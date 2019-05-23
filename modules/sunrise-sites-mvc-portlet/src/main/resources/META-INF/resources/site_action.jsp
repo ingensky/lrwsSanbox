@@ -2,7 +2,6 @@
 
 <%
     ResultRow row = (ResultRow)request.getAttribute(WebKeys.SEARCH_CONTAINER_RESULT_ROW);
-
     Group group = (Group)row.getObject();
 %>
 
@@ -30,9 +29,6 @@
                         url="<%= group.getDisplayURL(themeDisplay, true) %>"
                 />
             </c:if>
-
-
         </c:when>
-
     </c:choose>
 </liferay-ui:icon-menu>
