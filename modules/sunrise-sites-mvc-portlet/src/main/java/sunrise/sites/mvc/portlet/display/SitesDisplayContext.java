@@ -3,21 +3,26 @@ package sunrise.sites.mvc.portlet.display;
 import com.liferay.frontend.taglib.clay.servlet.taglib.util.ViewTypeItem;
 import com.liferay.frontend.taglib.clay.servlet.taglib.util.ViewTypeItemList;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.model.Company;
 import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.model.GroupConstants;
 import com.liferay.portal.kernel.model.Layout;
 import com.liferay.portal.kernel.service.GroupLocalServiceUtil;
 import com.liferay.portal.kernel.service.UserLocalServiceUtil;
-import com.liferay.portal.kernel.util.*;
+import com.liferay.portal.kernel.util.GetterUtil;
+import com.liferay.portal.kernel.util.ListUtil;
+import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
 import com.liferay.portlet.usersadmin.search.GroupSearch;
 
 import javax.portlet.PortletURL;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -78,40 +83,12 @@ public class SitesDisplayContext {
      * @return  displayStyles for rendering items
      */
     public List<ViewTypeItem> getViewTypeItems() {
-        ViewTypeItemList viewTypeItems = new ViewTypeItemList(this.getPortletURL(), this.getDisplayStyle()) {
+        return new ViewTypeItemList(SitesDisplayContext.this.getPortletURL(), SitesDisplayContext.this.getDisplayStyle()) {
             {
                 this.addCardViewTypeItem();
                 this.addTableViewTypeItem();
             }
         };
-        viewTypeItems.add(createADTViewTypeItem());
-        return viewTypeItems;
-    }
-
-
-    /**
-     * Constructs new ADTViewTypeItem
-     *
-     * @return
-     */
-    private ViewTypeItem createADTViewTypeItem() {
-        ViewTypeItem viewTypeItem = new ViewTypeItem();
-
-        if (Validator.isNotNull(displayStyle)) {
-            viewTypeItem.setActive(
-                    Objects.equals(displayStyle, "names"));
-        }
-
-        PortletURL portletURL = this.getPortletURL();
-        if (portletURL != null) {
-            viewTypeItem.setHref(portletURL, "displayStyle", "names");
-        }
-
-        viewTypeItem.setIcon("sun");
-        viewTypeItem.setLabel(
-                LanguageUtil.get(LocaleUtil.getMostRelevantLocale(), "NAMES"));
-
-        return viewTypeItem;
     }
 
     /**

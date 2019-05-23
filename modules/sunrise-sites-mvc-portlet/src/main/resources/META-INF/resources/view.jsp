@@ -52,15 +52,6 @@
                 %>
 
                 <c:choose>
-                    <c:when test='<%= Objects.equals(sitesDisplayContext.getDisplayStyle(), "names") %>'>
-                        <div class="sheet">
-                            <h4>
-                                <%= group.getName() %>
-                            </h4>
-
-                        </div>
-
-                    </c:when>
                     <c:when test='<%= Objects.equals(sitesDisplayContext.getDisplayStyle(), "icon") %>'>
 
                         <%
