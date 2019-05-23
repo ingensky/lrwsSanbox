@@ -1,4 +1,4 @@
-package sunrise.mvc.portlet.template;
+package sunrise.sites.mvc.portlet.template;
 
 
 import com.liferay.portal.kernel.language.LanguageUtil;
@@ -8,7 +8,7 @@ import com.liferay.portal.kernel.portletdisplaytemplate.PortletDisplayTemplateMa
 import com.liferay.portal.kernel.template.TemplateHandler;
 import com.liferay.portal.kernel.template.TemplateVariableGroup;
 import com.liferay.portal.kernel.util.Portal;
-import sunrise.mvc.portlet.constants.DummyMvcPortletKeys;
+import sunrise.sites.mvc.portlet.constants.SitesPortletKeys;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
@@ -18,10 +18,10 @@ import java.util.Map;
 
 @Component(
         immediate = true,
-        property = "javax.portlet.name=" + DummyMvcPortletKeys.DummyMvc,
+        property = "javax.portlet.name=" + SitesPortletKeys.SITES,
         service = TemplateHandler.class
 )
-public class DummyMvcPortletTemplateHandler extends BasePortletDisplayTemplateHandler {
+public class SitesPortletTemplateHandler extends BasePortletDisplayTemplateHandler {
 
     @Reference
     private Portal portal;
@@ -34,14 +34,14 @@ public class DummyMvcPortletTemplateHandler extends BasePortletDisplayTemplateHa
     @Override
     public String getName(Locale locale) {
         String portletTitle = portal.getPortletTitle(
-                DummyMvcPortletKeys.DummyMvc, locale);
+                SitesPortletKeys.SITES, locale);
 
         return LanguageUtil.format(locale, "x-template", portletTitle, false);
     }
 
     @Override
     public String getResourceName() {
-        return DummyMvcPortletKeys.DummyMvc;
+        return SitesPortletKeys.SITES;
     }
 
     @Override

@@ -1,5 +1,5 @@
 Bundle-Name: sunrise-mvc-portlet
-Bundle-SymbolicName: sunrise.mvc.portlet
+Bundle-SymbolicName: sunrise.sites.mvc.portlet
 Bundle-Version: 1.0.0
-Export-Package: sunrise.mvc.portlet.constants
+Export-Package: sunrise.sites.mvc.portlet.constants
 -metatype: *

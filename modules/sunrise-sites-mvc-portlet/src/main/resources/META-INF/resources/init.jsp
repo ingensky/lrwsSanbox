@@ -29,10 +29,9 @@
 <%@ page import="com.liferay.portal.kernel.model.Layout" %>
 
 
-<%@ page import="sunrise.mvc.portlet.configuration.DummyPortletConfiguration" %>
-<%@ page import="sunrise.mvc.portlet.display.DummyDisplayContext" %>
-<%@ page import="sunrise.mvc.portlet.constants.DummyMvcPortletKeys" %>
-
+<%@ page import="sunrise.sites.mvc.portlet.configuration.SitesPortletConfiguration" %>
+<%@ page import="sunrise.sites.mvc.portlet.display.SitesDisplayContext" %>
+<%@ page import="sunrise.sites.mvc.portlet.constants.SitesPortletKeys" %>
 
 
 <liferay-theme:defineObjects />
@@ -42,8 +41,8 @@
 <%
 
 
-    DummyPortletConfiguration demoConfiguration = (DummyPortletConfiguration)
-            renderRequest.getAttribute(DummyPortletConfiguration.class.getName());
+    SitesPortletConfiguration demoConfiguration = (SitesPortletConfiguration)
+            renderRequest.getAttribute(SitesPortletConfiguration.class.getName());
 
     String dummyField = StringPool.BLANK;
 
@@ -57,14 +56,12 @@
 
     }
 
-    DummyDisplayContext dummyDisplayContext = new DummyDisplayContext(renderRequest,
+    SitesDisplayContext sitesDisplayContext = new SitesDisplayContext(renderRequest,
             renderResponse,
             themeDisplay,
             layout,
             company,
             dummyField);
-
-//    PortletPreferences preferences = PortletPreferencesLocalServiceUtil.getPreferences(company.getCompanyId(), scopeGroupId, PortletKeys.PREFS_OWNER_TYPE_GROUP, 0, DummyMvcPortletKeys.DummyMvc, null);
 
     String displayStyle = GetterUtil.getString(portletPreferences.getValue("displayStyle", StringPool.BLANK));
     long displayStyleGroupId = GetterUtil.getLong(portletPreferences.getValue("displayStyleGroupId", null), scopeGroupId);

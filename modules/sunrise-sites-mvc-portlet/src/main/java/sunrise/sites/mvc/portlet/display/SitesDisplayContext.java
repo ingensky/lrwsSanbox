@@ -1,4 +1,4 @@
-package sunrise.mvc.portlet.display;
+package sunrise.sites.mvc.portlet.display;
 
 import com.liferay.frontend.taglib.clay.servlet.taglib.util.ViewTypeItem;
 import com.liferay.frontend.taglib.clay.servlet.taglib.util.ViewTypeItemList;
@@ -27,7 +27,7 @@ import java.util.stream.Collectors;
  * Configurates displaying context in portlet
  *
  */
-public class DummyDisplayContext {
+public class SitesDisplayContext {
     private String displayStyle;
     private GroupSearch groupSearch;
     private final RenderRequest renderRequest;
@@ -38,10 +38,9 @@ public class DummyDisplayContext {
     private Company company;
     private String dummyField;
 
-    public DummyDisplayContext(RenderRequest renderRequest,
-                               RenderResponse renderResponse,
-                               ThemeDisplay themeDisplay,
-                               Layout layout, Company company, String dummyField) {
+    public SitesDisplayContext(RenderRequest renderRequest, RenderResponse renderResponse,
+                               ThemeDisplay themeDisplay, Layout layout,
+                               Company company, String dummyField) {
         this.renderRequest = renderRequest;
         this.renderResponse = renderResponse;
         this.request = PortalUtil.getHttpServletRequest(renderRequest);
@@ -153,18 +152,25 @@ public class DummyDisplayContext {
         GroupSearchTerms searchTerms = (GroupSearchTerms) groupSearch.getSearchTerms();
         LinkedHashMap<String, Object> groupParams = new LinkedHashMap<>();
 
-        groupSearch.setDelta(5);
-
         groupParams.put("site", Boolean.TRUE);
+
+        int start = groupSearch.getStart();
+        int end = groupSearch.getEnd();
 
         List<Group> groups;
         int groupsCount;
+
+        long layoutId = Long.parseLong(dummyField);
+        if (layoutId != 0) {
+            start = -1;
+            end = -1;
+        }
 
         if (layout.getGroup().isOrganization()) {
             groupParams.put("active", Boolean.TRUE);
             long organizationId = layout.getGroup().getOrganizationId();
             groupsCount = GroupLocalServiceUtil.getOrganizationGroupsCount(organizationId);
-            groups = GroupLocalServiceUtil.getOrganizationGroups(organizationId);
+            groups = GroupLocalServiceUtil.getOrganizationGroups(organizationId, start, end);
         } else {
             if (layout.getGroup().isUser()) {
                 groupParams.put("usersGroups", layout.getGroup().getClassPK());
@@ -185,16 +191,12 @@ public class DummyDisplayContext {
             groups = GroupLocalServiceUtil.search(
                     company.getCompanyId(),
                     searchTerms.getKeywords(),
-                    groupParams, groupSearch.getStart(),
-                    groupSearch.getEnd(),
+                    groupParams,
+                    start, end,
                     groupSearch.getOrderByComparator());
-
         }
 
         groupSearch.setTotal(groupsCount);
-
-
-        long layoutId = Long.parseLong(dummyField);
 
         if (layoutId != 0) {
             groups = groups.stream().filter(group -> {
@@ -207,10 +209,15 @@ public class DummyDisplayContext {
                 return false;
             }).collect(Collectors.toList());
 
+            groupSearch.setTotal(groups.size());
+
+            groupSearch.setResults(groups
+                    .subList(groupSearch.getStart(),
+                            groupSearch.getEnd() < groups.size() ? groupSearch.getEnd() : groups.size()));
+
+        } else {
+            groupSearch.setResults(groups);
         }
-
-        groupSearch.setResults(groups);
-
 
         this.groupSearch = groupSearch;
 

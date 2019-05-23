@@ -5,7 +5,7 @@
 
 
     <portlet-resource>
-        <portlet-name>dummymvc</portlet-name>
+        <portlet-name>sunrise_sites_mvc_portlet_portlet_SitesPortlet</portlet-name>
         <permissions>
             <supports>
                 <action-key>ADD_PORTLET_DISPLAY_TEMPLATE</action-key>

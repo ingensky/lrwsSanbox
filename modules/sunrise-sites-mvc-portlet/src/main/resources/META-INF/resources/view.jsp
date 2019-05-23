@@ -22,7 +22,7 @@
         contextObjects="<%= contextObjects %>"
         displayStyle="<%= displayStyle %>"
         displayStyleGroupId="<%= displayStyleGroupId %>"
-        entries="<%= dummyDisplayContext.getGroupSearchContainer().getResults() %>"
+        entries="<%= sitesDisplayContext.getGroupSearchContainer().getResults() %>"
 >
 
 <div class="container-fluid container-fluid-max-xl container-view">
@@ -32,9 +32,9 @@
     </span>
 </div>
 <div class="container-fluid">
-    <%--    <span class="sticker sticker-primary sticker-lg">Total sites number is <%= dummyDisplayContext.getTotalItems() %></span>--%>
+    <%--    <span class="sticker sticker-primary sticker-lg">Total sites number is <%= sitesDisplayContext.getTotalItems() %></span>--%>
     <span class="label label-lg label-info">
-	    <span class="label-item label-item-expand">Total sites number is: <%= dummyDisplayContext.getTotalItems() %></span>
+	    <span class="label-item label-item-expand">Total sites number is: <%= sitesDisplayContext.getTotalItems() %></span>
     </span>
 </div>
 
@@ -42,14 +42,14 @@
 <clay:management-toolbar
         componentId="siteDummyWebManagementToolbar"
         showSearch="false"
-        itemsTotal="<%= dummyDisplayContext.getTotalItems() %>"
+        itemsTotal="<%= sitesDisplayContext.getTotalItems() %>"
         selectable="<%= false %>"
-        viewTypeItems="<%= dummyDisplayContext.getViewTypeItems() %>"
+        viewTypeItems="<%= sitesDisplayContext.getViewTypeItems() %>"
 />
 
-<aui:form action="<%= dummyDisplayContext.getPortletURL() %>" cssClass="container-fluid-1280" method="get" name="fm">
+<aui:form action="<%= sitesDisplayContext.getPortletURL() %>" cssClass="container-fluid-1280" method="get" name="fm">
     <liferay-ui:search-container
-            searchContainer="<%= dummyDisplayContext.getGroupSearchContainer() %>"
+            searchContainer="<%= sitesDisplayContext.getGroupSearchContainer() %>"
     >
 
 
@@ -74,15 +74,16 @@
 
 
             <c:choose>
-                <c:when test='<%= Objects.equals(dummyDisplayContext.getDisplayStyle(), "names") %>'>
+                <c:when test='<%= Objects.equals(sitesDisplayContext.getDisplayStyle(), "names") %>'>
                     <div class="sheet">
                     <h4>
                         <%= group.getName() %>
                     </h4>
+
                     </div>
 
                 </c:when>
-                <c:when test='<%= Objects.equals(dummyDisplayContext.getDisplayStyle(), "icon") %>'>
+                <c:when test='<%= Objects.equals(sitesDisplayContext.getDisplayStyle(), "icon") %>'>
 
                     <%
                         row.setCssClass("entry-card lfr-asset-item");
@@ -102,7 +103,7 @@
                                 >
                                     <liferay-frontend:vertical-card-footer>
                                         <strong><liferay-ui:message
-                                                key="members"/></strong>: <%= String.valueOf(dummyDisplayContext.getGroupUsersCounts(group.getGroupId())) %>
+                                                key="members"/></strong>: <%= String.valueOf(sitesDisplayContext.getGroupUsersCounts(group.getGroupId())) %>
                                     </liferay-frontend:vertical-card-footer>
                                 </liferay-frontend:vertical-card>
                             </c:when>
@@ -118,14 +119,14 @@
                                 >
                                     <liferay-frontend:vertical-card-footer>
                                         <strong><liferay-ui:message
-                                                key="members"/></strong>: <%= String.valueOf(dummyDisplayContext.getGroupUsersCounts(group.getGroupId())) %>
+                                                key="members"/></strong>: <%= String.valueOf(sitesDisplayContext.getGroupUsersCounts(group.getGroupId())) %>
                                     </liferay-frontend:vertical-card-footer>
                                 </liferay-frontend:icon-vertical-card>
                             </c:otherwise>
                         </c:choose>
                     </liferay-ui:search-container-column-text>
                 </c:when>
-                <c:when test='<%= Objects.equals(dummyDisplayContext.getDisplayStyle(), "list") %>'>
+                <c:when test='<%= Objects.equals(sitesDisplayContext.getDisplayStyle(), "list") %>'>
 
                     <liferay-ui:search-container-column-text
                             name="name"
@@ -156,7 +157,7 @@
 
                     <liferay-ui:search-container-column-text
                             name="members"
-                            value="<%= String.valueOf(dummyDisplayContext.getGroupUsersCounts(group.getGroupId())) %>"
+                            value="<%= String.valueOf(sitesDisplayContext.getGroupUsersCounts(group.getGroupId())) %>"
                     />
 
 
@@ -177,7 +178,7 @@
             </c:choose>
         </liferay-ui:search-container-row>
 
-        <liferay-ui:search-iterator displayStyle="<%= dummyDisplayContext.getDisplayStyle() %>" markupView="lexicon"/>
+        <liferay-ui:search-iterator displayStyle="<%= sitesDisplayContext.getDisplayStyle() %>" markupView="lexicon"/>
     </liferay-ui:search-container>
 </aui:form>
 

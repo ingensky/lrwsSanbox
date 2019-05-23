@@ -1,4 +1,4 @@
-package sunrise.mvc.portlet.action;
+package sunrise.sites.mvc.portlet.action;
 
 import com.liferay.portal.configuration.metatype.bnd.util.ConfigurableUtil;
 import com.liferay.portal.kernel.log.Log;
@@ -6,8 +6,8 @@ import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.portlet.ConfigurationAction;
 import com.liferay.portal.kernel.portlet.DefaultConfigurationAction;
 import com.liferay.portal.kernel.util.ParamUtil;
-import sunrise.mvc.portlet.configuration.DummyPortletConfiguration;
-import sunrise.mvc.portlet.constants.DummyMvcPortletKeys;
+import sunrise.sites.mvc.portlet.configuration.SitesPortletConfiguration;
+import sunrise.sites.mvc.portlet.constants.SitesPortletKeys;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.ConfigurationPolicy;
@@ -21,23 +21,23 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
 
 @Component(
-        configurationPid = "sunrise.mvc.portlet.portlet.DummyMvcPortlet",
+        configurationPid = "sunrise.sites.mvc.portlet.portlet.SitesPortlet",
         configurationPolicy = ConfigurationPolicy.OPTIONAL,
         immediate = true,
-        property = "javax.portlet.name="+ DummyMvcPortletKeys.DummyMvc,
+        property = "javax.portlet.name="+ SitesPortletKeys.SITES,
         service = ConfigurationAction.class
 
 )
-public class DummyPortletConfigurationAction extends DefaultConfigurationAction {
+public class SitesPortletConfigurationAction extends DefaultConfigurationAction {
 
-    private static final Log _log = LogFactoryUtil.getLog(DummyPortletConfigurationAction.class);
+    private static final Log _log = LogFactoryUtil.getLog(SitesPortletConfigurationAction.class);
 
-    private volatile DummyPortletConfiguration _dummyPortletConfiguration;
+    private volatile SitesPortletConfiguration sitesPortletConfiguration;
 
     @Override
     public void include(PortletConfig portletConfig, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-        request.setAttribute(DummyPortletConfiguration.class.getName(), _dummyPortletConfiguration);
+        request.setAttribute(SitesPortletConfiguration.class.getName(), sitesPortletConfiguration);
 
         super.include(portletConfig, request, response);
 
@@ -59,7 +59,7 @@ public class DummyPortletConfigurationAction extends DefaultConfigurationAction 
     protected void activate(Map<Object, Object> properties) {
         _log.info("#####  Calling activate in action class #####");
 
-//        _dummyPortletConfiguration = Configurable.createConfigurable(DummyPortletConfiguration.class, properties);
-        _dummyPortletConfiguration = ConfigurableUtil.createConfigurable(DummyPortletConfiguration.class, properties);
+//        sitesPortletConfiguration = Configurable.createConfigurable(SitesPortletConfiguration.class, properties);
+        sitesPortletConfiguration = ConfigurableUtil.createConfigurable(SitesPortletConfiguration.class, properties);
     }
 }
