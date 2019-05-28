@@ -1,0 +1,10 @@
+Bundle-Name: dummy-message-service-api
+Bundle-SymbolicName: com.dummy.api
+Bundle-Version: 1.0.0
+Export-Package:\
+	com.dummy.exception,\
+	com.dummy.model,\
+	com.dummy.service,\
+	com.dummy.service.persistence
+-check: EXPORTS
+-includeresource: META-INF/service.xml=../dummy-message-service-service/service.xml

@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+
+<model-hints>
+	<model name="com.dummy.model.DummyMessage">
+		<field name="id" type="long" />
+		<field name="text" type="String" />
+		<field name="tag" type="String" />
+	</model>
+</model-hints>

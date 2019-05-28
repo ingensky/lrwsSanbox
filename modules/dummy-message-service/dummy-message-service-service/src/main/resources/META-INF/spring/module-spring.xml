@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+
+<beans
+	default-destroy-method="destroy"
+	default-init-method="afterPropertiesSet"
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"
+>
+	<bean class="com.dummy.service.impl.DummyMessageLocalServiceImpl" id="com.dummy.service.DummyMessageLocalService" />
+	<bean class="com.dummy.service.persistence.impl.DummyMessagePersistenceImpl" id="com.dummy.service.persistence.DummyMessagePersistence" parent="basePersistence" />
+</beans>

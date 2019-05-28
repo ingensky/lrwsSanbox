@@ -1,0 +1,4 @@
+Bundle-Name: service-dummy-test-portlet
+Bundle-SymbolicName: com.dummy
+Bundle-Version: 1.0.0
+Export-Package: com.dummy.constants
