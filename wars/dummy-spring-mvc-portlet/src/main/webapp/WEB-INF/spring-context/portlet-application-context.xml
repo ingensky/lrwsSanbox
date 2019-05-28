@@ -1,0 +1,82 @@
+<?xml version="1.0"?>
+
+<beans
+		xmlns="http://www.springframework.org/schema/beans"
+		xmlns:context="http://www.springframework.org/schema/context"
+		xmlns:mvc="http://www.springframework.org/schema/mvc"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+		xmlns:tx="http://www.springframework.org/schema/tx"
+		xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd"
+>
+	<context:annotation-config />
+
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver" id="viewResolver">
+		<property name="contentType" value="text/html;charset=UTF-8" />
+		<property name="prefix" value="/WEB-INF/jsp/" />
+		<property name="suffix" value=".jsp" />
+		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
+	</bean>
+
+<!--	<bean id="dataSource"-->
+<!--		  class="org.springframework.jdbc.datasource.DriverManagerDataSource"-->
+<!--		  p:driverClassName="com.mysql.jdbc.Driver"-->
+<!--		  p:url="jdbc:mysql://localhost:3306/sunrise?useUnicode=true&amp;characterEncoding=UTF-8&amp;useFastDateParsing=false"-->
+<!--		  p:username="sky"-->
+<!--		  p:password="7410"/>-->
+
+	<bean id="dataSource" class="com.liferay.portal.kernel.util.InfrastructureUtil" factory-method="getDataSource" />
+
+
+	<!-- Create default configuration for Hibernate -->
+	<bean id="jpaVendor"
+		  class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+		<property name="database" value="MYSQL"/>
+	</bean>
+
+<!--	&lt;!&ndash; Configure the entity manager factory bean &ndash;&gt;-->
+<!--	<bean id="entityManagerFactory"-->
+<!--		  class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">-->
+<!--		<property name="dataSource" ref="dataSource"/>-->
+<!--		<property name="jpaVendorAdapter" ref="hibernateJpaVendorAdapter"/>-->
+<!--		&lt;!&ndash; Set JPA properties &ndash;&gt;-->
+<!--		<property name="jpaProperties">-->
+<!--			<props>-->
+<!--				<prop key="hibernate.dialect">org.hibernate.dialect.MySQL5InnoDBDialect</prop>-->
+<!--				<prop key="javax.persistence.schema-generation.database.action">none</prop>-->
+<!--				<prop key="hibernate.ejb.use_class_enhancer">true</prop>-->
+<!--			</props>-->
+<!--		</property>-->
+<!--		&lt;!&ndash; Set base package of your entities &ndash;&gt;-->
+<!--		<property name="packagesToScan" value="com.dummy.domain"/>-->
+<!--		&lt;!&ndash; Set share cache mode &ndash;&gt;-->
+<!--		<property name="sharedCacheMode" value="ENABLE_SELECTIVE"/>-->
+<!--		&lt;!&ndash; Set validation mode &ndash;&gt;-->
+<!--		<property name="validationMode" value="NONE"/>-->
+<!--	</bean>-->
+
+
+	<!-- Creates a EntityManagerFactory for use with the Hibernate JPA provider and a simple in-memory data source populated with test data -->
+	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="dataSource" ref="dataSource"/>
+		<property name="persistenceUnitName" value="reportsPersistence"/>
+		<property name="jpaVendorAdapter">
+			<!-- Mysql  -->
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"
+				  p:database="MYSQL"
+				  p:showSql="true"
+				  p:databasePlatform="org.hibernate.dialect.MySQLDialect"
+				  p:generateDdl="true"/>
+		</property>
+		<property name="packagesToScan" value="com.dummy.domain"/>
+	</bean>
+
+	<!-- Configure the transaction manager bean -->
+	<bean id="transactionManager"
+		  class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="entityManagerFactory"/>
+	</bean>
+
+	<!-- Enable annotation driven transaction management -->
+	<tx:annotation-driven/>
+
+</beans>
